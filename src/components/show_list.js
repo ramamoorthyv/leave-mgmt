@@ -6,9 +6,9 @@ import React, { Component } from 'react';
     return (
 		<ul>
 			<li>name as follows</li>
-			{this.props.list.map(function(name){
-				<li>{name}</li>
-			})}
+			{this.props.data.map(function(name, index){
+                    return <li key={ index }>{name}</li>;
+             })}
 		</ul>
     );
   }

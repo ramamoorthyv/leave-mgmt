@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import List from './show_list';
+import Userform from './user_form';
 var axios = require('axios');
 
  class Listuser extends Component {
@@ -10,7 +12,17 @@ var axios = require('axios');
     };    
   }
 
-  handleSubmit(){  	
+  // handleSubmit(values){  	
+  // 	console.log('The result is ');
+  // 	console.log(values);
+  // }
+
+  handleSubmit = (values) => {
+    // Do something with the form values
+    //console.log(values);
+    axios.get('response/user.json',values).then(function(response){
+    	console.log(response.data)
+    });
   }
 
   componentDidMount() {
@@ -18,9 +30,9 @@ var axios = require('axios');
   	// 	names: ['ramamoorthy','villithevar','vishnu']
   	// }
   	var self = this;
-  	axios.get('names.json')
+  	axios.get('response/names.json')
     .then(function (response) {
-    	console.log(response.data);
+    	//console.log(response.data);
       self.setState({
         names: response.data
       });
@@ -33,14 +45,14 @@ var axios = require('axios');
 
   render() {
   	//var names = ['Jake', 'Jon', 'Thruster'];
-  	var names = this.state.names
-  	console.log(names);
+  	console.log(this.state.names);
     return (
 		<div>
+		<br/>
+		   <div><Userform onSubmit={this.handleSubmit} /></div>
+		   <br/>
 			<ul>
-				{names.map(function(name, index){
-                    return <li key={ index }>{name}</li>;
-                  })}
+				<List data={this.state.names} />
 			</ul>
 		</div>
     );
